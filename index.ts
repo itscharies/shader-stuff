@@ -5,7 +5,8 @@ container.classList.add("container");
 
 const hue = 360 * Math.random();
 const shift = 90 * Math.random();
-console.log(hue);
+const swap = false;
+console.log(hue, shift, swap);
 
 const limit = 7;
 const colours: Color[] = new Array(limit + 1).fill(0).map((_, i) => {
@@ -13,10 +14,10 @@ const colours: Color[] = new Array(limit + 1).fill(0).map((_, i) => {
   // const l = 100 * i ** exp / limit ** exp;
   // const l = 100 * Math.sin(i/limit*Math.PI);
   // const l = 100 * Math.sqrt(i) / Math.sqrt(limit);
-  const l = 100 * Math.pow(i, Math.PI/2) / Math.pow(limit, Math.PI/2);
+  const l = (100 * Math.pow(i, Math.PI / 2)) / Math.pow(limit, Math.PI / 2);
   const c = 100;
-  const h = hue + (shift * Math.cos(i/2/limit*Math.PI));
-  return new Color("hsl", [h, c, l]);
+  const h = hue + shift * Math.cos((i / 2 / limit) * Math.PI);
+  return new Color("hsl", [i > limit / 2 && swap ? (h + 160) % 360 : h, c, l]);
 });
 
 colours.forEach((c) => {
